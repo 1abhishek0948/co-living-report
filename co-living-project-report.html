@@ -1,0 +1,647 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Co-Living Space Platform Project Report</title>
+    <style>
+      @page {
+        size: A4;
+        margin: 16mm 14mm 18mm;
+      }
+
+      :root {
+        --ink: #1e1b16;
+        --muted: #6b6258;
+        --line: #d9ccbb;
+        --panel: #f8f3eb;
+        --panel-strong: #fffdf9;
+        --accent: #9a4425;
+        --secondary: #0d6963;
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        color: var(--ink);
+        font-family: "Helvetica Neue", Arial, sans-serif;
+        font-size: 11pt;
+        line-height: 1.55;
+        background: white;
+      }
+
+      h1,
+      h2,
+      h3 {
+        margin: 0 0 0.35rem;
+        line-height: 1.15;
+      }
+
+      h1 {
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 28pt;
+        letter-spacing: -0.03em;
+      }
+
+      h2 {
+        margin-top: 1.8rem;
+        padding-top: 0.5rem;
+        border-top: 1px solid var(--line);
+        font-family: Georgia, "Times New Roman", serif;
+        font-size: 17pt;
+      }
+
+      h3 {
+        font-size: 12.5pt;
+      }
+
+      p {
+        margin: 0.45rem 0;
+      }
+
+      ul,
+      ol {
+        margin: 0.45rem 0 0.85rem 1.25rem;
+        padding: 0;
+      }
+
+      li {
+        margin: 0.22rem 0;
+      }
+
+      code,
+      pre {
+        font-family: Menlo, Consolas, Monaco, monospace;
+      }
+
+      pre {
+        margin: 0.75rem 0;
+        padding: 0.9rem 1rem;
+        overflow: hidden;
+        white-space: pre-wrap;
+        border-radius: 10px;
+        border: 1px solid var(--line);
+        background: var(--panel-strong);
+        font-size: 9.4pt;
+        line-height: 1.45;
+      }
+
+      table {
+        width: 100%;
+        margin: 0.75rem 0 1rem;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 0.65rem 0.7rem;
+        vertical-align: top;
+        border: 1px solid var(--line);
+        text-align: left;
+      }
+
+      th {
+        background: #efe3d4;
+        font-size: 10pt;
+      }
+
+      .cover {
+        padding: 1rem 0 1.4rem;
+      }
+
+      .eyebrow {
+        color: var(--secondary);
+        font-size: 9pt;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+      }
+
+      .subtitle {
+        max-width: 56rem;
+        color: var(--muted);
+        font-size: 12pt;
+      }
+
+      .meta-grid {
+        display: grid;
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+        gap: 0.9rem;
+        margin: 1.25rem 0 1rem;
+      }
+
+      .meta-card,
+      .callout {
+        padding: 0.95rem 1rem;
+        border: 1px solid var(--line);
+        border-radius: 12px;
+        background: var(--panel);
+      }
+
+      .meta-card strong {
+        display: block;
+        margin-bottom: 0.2rem;
+        font-size: 10pt;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: var(--muted);
+      }
+
+      .meta-card span {
+        font-size: 12pt;
+        font-weight: 700;
+      }
+
+      .grid-2 {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1rem;
+      }
+
+      .status {
+        display: inline-block;
+        padding: 0.18rem 0.5rem;
+        border-radius: 999px;
+        font-size: 8.5pt;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+
+      .status.good {
+        background: rgba(13, 105, 99, 0.12);
+        color: var(--secondary);
+      }
+
+      .status.partial {
+        background: rgba(154, 68, 37, 0.12);
+        color: var(--accent);
+      }
+
+      .small {
+        color: var(--muted);
+        font-size: 9.4pt;
+      }
+
+      .page-break {
+        page-break-before: always;
+      }
+
+      .avoid-break {
+        page-break-inside: avoid;
+      }
+    </style>
+  </head>
+  <body>
+    <section class="cover">
+      <p class="eyebrow">Project Report</p>
+      <h1>Co-Living Space Platform</h1>
+      <p class="subtitle">
+        Detailed implementation report for the current greenfield scaffold covering discovery,
+        roommate matching, verified profile boundaries, owner operations, and deployment
+        foundations.
+      </p>
+
+      <div class="meta-grid">
+        <div class="meta-card">
+          <strong>Status</strong>
+          <span>Scaffold Complete</span>
+        </div>
+        <div class="meta-card">
+          <strong>Generated</strong>
+          <span>March 8, 2026</span>
+        </div>
+        <div class="meta-card">
+          <strong>Workspace</strong>
+          <span>/CO-LIving</span>
+        </div>
+      </div>
+
+      <div class="callout">
+        <strong>Executive Summary</strong>
+        <p>
+          The repository now contains a working monorepo scaffold for a co-living marketplace. It
+          includes a Next.js frontend, a Fastify API, a shared TypeScript domain package, a Prisma
+          schema for the intended production data model, Docker-based local infrastructure, starter
+          Terraform resources, and a mock-backed auth layer for account creation and login. The
+          current runtime favors demonstrable product flows over full persistence, which is the
+          correct tradeoff for a first delivery slice.
+        </p>
+      </div>
+    </section>
+
+    <h2>1. Scope Delivered</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Area</th>
+          <th>What Exists</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Monorepo foundation</td>
+          <td>Root workspace config, package scripts, shared TS config, lockfile, docs</td>
+          <td><span class="status good">Done</span></td>
+        </tr>
+        <tr>
+          <td>Frontend</td>
+          <td>Next.js app with discovery, matching, listing detail, owners, profile, login, signup</td>
+          <td><span class="status good">Done</span></td>
+        </tr>
+        <tr>
+          <td>Backend API</td>
+          <td>Fastify routes for health, auth, users, listings, matching, applications, chat, KYC, payments</td>
+          <td><span class="status good">Done</span></td>
+        </tr>
+        <tr>
+          <td>Matching engine</td>
+          <td>Weighted compatibility scoring with blockers, reasons, and confidence</td>
+          <td><span class="status good">Done</span></td>
+        </tr>
+        <tr>
+          <td>Persistence model</td>
+          <td>Prisma schema and seed script for future DB-backed runtime</td>
+          <td><span class="status partial">Prepared</span></td>
+        </tr>
+        <tr>
+          <td>Infrastructure</td>
+          <td>Docker Compose for Postgres, Redis, MinIO and starter Terraform resources</td>
+          <td><span class="status partial">Prepared</span></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>2. Technical Architecture</h2>
+    <div class="grid-2">
+      <div class="callout avoid-break">
+        <strong>Primary Runtime Components</strong>
+        <ul>
+          <li><strong>Web:</strong> Next.js 15 with React 19</li>
+          <li><strong>API:</strong> Fastify 5 running via `tsx` in dev and start mode</li>
+          <li><strong>Shared:</strong> workspace package for domain types and matching logic</li>
+          <li><strong>Schema:</strong> Prisma 6 with PostgreSQL as target datastore</li>
+          <li><strong>Local infra:</strong> PostgreSQL, Redis, MinIO</li>
+          <li><strong>Deploy prep:</strong> ECS cluster, ECR, logs, S3 bucket in Terraform starter</li>
+        </ul>
+      </div>
+      <div class="callout avoid-break">
+        <strong>Current Architectural Position</strong>
+        <p>
+          The application is intentionally in a modular-monolith phase. Domain boundaries exist
+          already, but runtime persistence is still mocked in memory. This gives fast product
+          iteration while preserving a clean path to replace repositories with Prisma-backed
+          services.
+        </p>
+      </div>
+    </div>
+
+    <pre>
+Browser
+  -> Next.js web app (pages, auth session UI, discovery views)
+      -> Fastify API
+          -> in-memory domain store today
+          -> Prisma schema and seed for DB-backed phase
+          -> provider abstractions for Persona / Onfido / Stripe
+      -> local storage session persistence for mock auth UI
+
+Future production path:
+Next.js / API -> PostgreSQL + Redis + object storage -> queues / workers -> managed cloud services
+    </pre>
+
+    <h2>3. Frontend Delivery Summary</h2>
+    <p>The web app currently provides these routes and UX surfaces:</p>
+    <table>
+      <thead>
+        <tr>
+          <th>Route</th>
+          <th>Purpose</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>/</td>
+          <td>Overview landing page</td>
+          <td>Introduces discovery, matching, and trust model</td>
+        </tr>
+        <tr>
+          <td>/discover</td>
+          <td>Listing browse page</td>
+          <td>Consumes API, falls back to sample data if needed</td>
+        </tr>
+        <tr>
+          <td>/listings/[slug]</td>
+          <td>Listing detail page</td>
+          <td>Shows rent, rules, trust, amenities, and occupants</td>
+        </tr>
+        <tr>
+          <td>/matching</td>
+          <td>Compatibility output page</td>
+          <td>Explains score dimensions and ranked listings</td>
+        </tr>
+        <tr>
+          <td>/profile</td>
+          <td>User profile page</td>
+          <td>Uses signed-in session when present; otherwise shows sample seeker</td>
+        </tr>
+        <tr>
+          <td>/owners</td>
+          <td>Owner operations overview</td>
+          <td>Highlights listing and payout management direction</td>
+        </tr>
+        <tr>
+          <td>/login and /signup</td>
+          <td>Account entry points</td>
+          <td>Connected to mock API auth routes and local session persistence</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>
+      The header was updated so clicking <strong>Co-Living Space Platform</strong> sends the user
+      to the homepage using a normal anchor, which also covers refresh behavior if the user is
+      already on `/`. The earlier <strong>Verified</strong> navbar badge was removed and replaced
+      with account actions.
+    </p>
+
+    <h2>4. Backend API Summary</h2>
+    <p>
+      The API is organized by domain modules under <code>apps/api/src/modules</code>. It exposes
+      product-facing routes plus integration boundaries for identity verification and payments.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Module</th>
+          <th>Responsibilities</th>
+          <th>Current Runtime State</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Health</td>
+          <td>Service heartbeat</td>
+          <td>Working</td>
+        </tr>
+        <tr>
+          <td>Auth</td>
+          <td>Register and login users</td>
+          <td>Working against in-memory account store</td>
+        </tr>
+        <tr>
+          <td>Users</td>
+          <td>Expose user data and move-in intent</td>
+          <td>Working with seeded user summaries</td>
+        </tr>
+        <tr>
+          <td>Listings</td>
+          <td>Listing search and listing detail</td>
+          <td>Working with filters and seeded listings</td>
+        </tr>
+        <tr>
+          <td>Matching</td>
+          <td>Generate ranked candidate listings</td>
+          <td>Working through shared compatibility engine</td>
+        </tr>
+        <tr>
+          <td>Applications</td>
+          <td>Create and list applications</td>
+          <td>Working with in-memory state</td>
+        </tr>
+        <tr>
+          <td>Chat</td>
+          <td>Create conversations and exchange messages</td>
+          <td>Working with in-memory state</td>
+        </tr>
+        <tr>
+          <td>Verification</td>
+          <td>Abstract Persona and Onfido workflows</td>
+          <td>Mock provider orchestration and webhook normalization</td>
+        </tr>
+        <tr>
+          <td>Payments</td>
+          <td>Abstract Stripe Connect onboarding and deposit intents</td>
+          <td>Mock provider orchestration and webhook normalization</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>5. Matching Engine Detail</h2>
+    <p>
+      The matching engine lives in the shared package and is one of the strongest concrete pieces
+      of business logic already implemented. It is deterministic, explainable, and returns both a
+      score and a confidence value.
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Dimension</th>
+          <th>Weight</th>
+          <th>Implementation Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Budget</td>
+          <td>25%</td>
+          <td>Scores within-budget fully and decays when rent is outside target range</td>
+        </tr>
+        <tr>
+          <td>Timing</td>
+          <td>20%</td>
+          <td>Matches listing availability to move-in window with 45-day decay outside range</td>
+        </tr>
+        <tr>
+          <td>Location</td>
+          <td>10%</td>
+          <td>Compares listing area to preferred areas</td>
+        </tr>
+        <tr>
+          <td>Lifestyle</td>
+          <td>35%</td>
+          <td>Cleanliness, noise, guests, sociability, sleep, WFH, smoking, pets</td>
+        </tr>
+        <tr>
+          <td>Household</td>
+          <td>10%</td>
+          <td>Mean roommate fit with variance penalty to punish one severe mismatch</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Hard blockers currently include:</p>
+    <ul>
+      <li>Rent exceeding declared budget ceiling by more than 15%</li>
+      <li>No vacant slots</li>
+      <li>Required verification level not met</li>
+      <li>Listing rules conflict with smoking or pet status</li>
+      <li>Stay length outside listing min/max constraints</li>
+    </ul>
+
+    <h2>6. Data Model and Persistence Readiness</h2>
+    <p>
+      The runtime data store is still mocked for speed, but the Prisma schema is already modeling
+      the intended production structure. That is important because it prevents a future rewrite of
+      the domain shape.
+    </p>
+
+    <div class="grid-2">
+      <div class="callout avoid-break">
+        <strong>Core relational entities</strong>
+        <ul>
+          <li>User and UserProfile</li>
+          <li>RoommatePreference and MoveInIntent</li>
+          <li>VerificationState and VerificationCase</li>
+          <li>Property, Unit, Listing, ListingOccupant</li>
+          <li>Application</li>
+          <li>Conversation, ConversationMember, Message</li>
+          <li>PaymentAccount and PaymentLedgerEntry</li>
+          <li>AuditLog</li>
+        </ul>
+      </div>
+      <div class="callout avoid-break">
+        <strong>What this means operationally</strong>
+        <p>
+          The schema already supports owner inventory, seeker intent, trust state, household
+          matching, chats, and financial audit trails. The missing work is repository replacement
+          and transaction orchestration, not schema invention.
+        </p>
+      </div>
+    </div>
+
+    <h2>7. Auth, Trust, and Payments</h2>
+    <p>
+      The project now includes a basic sign-up and login flow. It is intentionally mock-backed and
+      not yet suitable for production. The auth layer exists to unblock UI flows and stakeholder
+      review, not to represent final security design.
+    </p>
+
+    <ul>
+      <li>Login and signup are implemented in the web app and backed by API routes.</li>
+      <li>Sessions are stored client-side in local storage for the current demo implementation.</li>
+      <li>Seeded demo logins exist for testing the mock experience.</li>
+      <li>KYC integration boundaries exist through Persona and Onfido provider wrappers.</li>
+      <li>Payments integration boundaries exist through a Stripe Connect-style provider wrapper.</li>
+    </ul>
+
+    <div class="callout">
+      <strong>Important trust note</strong>
+      <p>
+        The current account flow is a delivery scaffold. It does not yet include password hashing,
+        CSRF protection, JWT/session signing, email verification, rate limiting, or server-backed
+        session storage. Those belong in the next implementation phase.
+      </p>
+    </div>
+
+    <h2>8. Local Development and Delivery Workflow</h2>
+    <pre>
+npm install -g pnpm@10.6.0
+cp .env.example .env
+docker compose up -d
+pnpm install
+pnpm db:generate
+pnpm db:migrate
+pnpm db:seed
+pnpm dev
+    </pre>
+
+    <p>Root workspace scripts currently support:</p>
+    <ul>
+      <li><code>pnpm dev</code> for shared watch + web + API</li>
+      <li><code>pnpm build</code> for full workspace build</li>
+      <li><code>pnpm typecheck</code> for workspace-level TS validation</li>
+      <li><code>pnpm db:generate</code>, <code>pnpm db:migrate</code>, and <code>pnpm db:seed</code></li>
+    </ul>
+
+    <h2>9. Validation Performed</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Check</th>
+          <th>Result</th>
+          <th>Observation</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Workspace typecheck</td>
+          <td><span class="status good">Pass</span></td>
+          <td>Shared package, web app, and API typechecked successfully</td>
+        </tr>
+        <tr>
+          <td>Workspace build</td>
+          <td><span class="status good">Pass</span></td>
+          <td>Next.js generated static pages and route artifacts successfully</td>
+        </tr>
+        <tr>
+          <td>Health route inject test</td>
+          <td><span class="status good">Pass</span></td>
+          <td>Fastify health route returned HTTP 200</td>
+        </tr>
+        <tr>
+          <td>Login route inject test</td>
+          <td><span class="status good">Pass</span></td>
+          <td>Mock auth login returned HTTP 200</td>
+        </tr>
+        <tr>
+          <td>Register route inject test</td>
+          <td><span class="status good">Pass</span></td>
+          <td>Mock auth register returned HTTP 201</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2>10. Known Gaps and Risks</h2>
+    <ol>
+      <li>
+        The API runtime still uses in-memory state for listings, users, applications, chats, and
+        auth. A server restart resets that data.
+      </li>
+      <li>
+        The login flow is a demo scaffold, not production security. Passwords are not yet hashed
+        and sessions are not yet persisted or signed on the server.
+      </li>
+      <li>
+        Verification and payment providers are placeholders rather than live SDK-backed
+        integrations.
+      </li>
+      <li>
+        Prisma schema readiness is ahead of runtime repository implementation, which is the main
+        remaining architecture gap.
+      </li>
+      <li>
+        Terraform currently covers only starter cloud resources. Networking, databases, load
+        balancing, WAF, and CD workflows still need expansion.
+      </li>
+    </ol>
+
+    <h2>11. Recommended Next Phase</h2>
+    <ol>
+      <li>Replace mock repositories with Prisma-backed services and transactions.</li>
+      <li>Introduce proper auth with hashing, protected sessions, and route authorization.</li>
+      <li>Persist chats, applications, and verification events in PostgreSQL.</li>
+      <li>Wire real Persona / Onfido and Stripe SDK flows with signed webhooks.</li>
+      <li>Add Redis-backed queues for notifications, recomputation, and moderation workflows.</li>
+      <li>Expand Terraform into a deployable AWS environment with ECS services and managed data stores.</li>
+    </ol>
+
+    <h2>12. Final Assessment</h2>
+    <p>
+      This repository is in a strong scaffold state. It already demonstrates the product direction,
+      architectural boundaries, matching logic, route shape, and UX surface expected for a
+      co-living marketplace. The codebase is not yet a production system, but it is no longer an
+      idea or a pure design artifact either. It is now an executable foundation with a clear path
+      to persistence, security hardening, and cloud deployment.
+    </p>
+
+    <p class="small">
+      Report source file: <code>docs/co-living-project-report.html</code>
+    </p>
+  </body>
+</html>
